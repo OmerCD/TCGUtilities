@@ -32,7 +32,10 @@ namespace MilitaryTCGUtility
             lBKeywords.Items.Clear();
             var resKeywords = keywords ?? _crudKeyword.GetAll();
 
-            lBKeywords.Items.AddRange(resKeywords.ToArray());
+            var items = resKeywords.ToArray();
+            lBKeywords.Items.AddRange(items);
+
+            Text = "Number of Keywords : " + items.Length;
         }
 
         private void ClearKeywordInfoTextboxes()
@@ -115,7 +118,6 @@ namespace MilitaryTCGUtility
                     keyword.Name = tBName.Text;
                     keyword.Description = tBDescription.Text;
                     _crudKeyword.Update(keyword._id, keyword);
-                    lBKeywords.SelectedIndex = -1;
                     FillListBox();
                     ClearKeywordInfoTextboxes();
                 }
