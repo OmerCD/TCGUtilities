@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MilitaryTCGUtility", "Milit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestField", "TestField\TestField.csproj", "{DB146A6A-6544-4FAA-A244-66017E8D4CC9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CardCreator", "CardCreator\CardCreator.csproj", "{578846A8-795F-4FE8-AB68-8EAED4262783}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{DB146A6A-6544-4FAA-A244-66017E8D4CC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB146A6A-6544-4FAA-A244-66017E8D4CC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB146A6A-6544-4FAA-A244-66017E8D4CC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{578846A8-795F-4FE8-AB68-8EAED4262783}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{578846A8-795F-4FE8-AB68-8EAED4262783}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{578846A8-795F-4FE8-AB68-8EAED4262783}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{578846A8-795F-4FE8-AB68-8EAED4262783}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

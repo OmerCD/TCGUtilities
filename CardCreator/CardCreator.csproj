@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CBDCC69B-998A-4219-A6A6-96A25C602665}</ProjectGuid>
+    <ProjectGuid>{578846A8-795F-4FE8-AB68-8EAED4262783}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>MilitaryTCGUtility</RootNamespace>
-    <AssemblyName>MilitaryTCGUtility</AssemblyName>
+    <RootNamespace>CardCreator</RootNamespace>
+    <AssemblyName>CardCreator</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -70,12 +70,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Card.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Keyword.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">

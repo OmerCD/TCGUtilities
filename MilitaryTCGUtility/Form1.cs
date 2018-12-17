@@ -12,19 +12,28 @@ namespace MilitaryTCGUtility
 
     public partial class Form1 : Form
     {
-        private readonly Crud<Keyword> _crudKeyword;
+        private Crud<Keyword> _crudKeyword;
         private Control _errorControl;
         public Form1()
         {
             InitializeComponent();
             //const string ConnectionString = "mongodb://ohm:741895623ohm@test-shard-00-00-imtir.mongodb.net:27017,test-shard-00-01-imtir.mongodb.net:27017,test-shard-00-02-imtir.mongodb.net:27017/test?ssl=true&replicaSet=test-shard-0&authSource=admin&retryWrites=true";
-            MongoDbConnection.InitializeAndStartConnection("MilitaryTCG", serverIP: "192.168.1.67");
+            MongoDbConnection.InitializeAndStartConnection("MilitaryTCG", serverIP: "88.233.55.226");
             _crudKeyword = new Crud<Keyword>();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             FillListBox();
+            //var allKeywords = _crudKeyword.GetAll();
+            //foreach (var item in allKeywords)
+            //{
+            //    item.Description = item.Description.Replace("X", "$X");
+            //}
+            //const string ConnectionString = "mongodb://ohm:741895623ohm@test-shard-00-00-imtir.mongodb.net:27017,test-shard-00-01-imtir.mongodb.net:27017,test-shard-00-02-imtir.mongodb.net:27017/test?ssl=true&replicaSet=test-shard-0&authSource=admin&retryWrites=true";
+            //MongoDbConnection.InitializeAndStartConnection(ConnectionString, databaseName: "MilitaryTCG");
+            //_crudKeyword = new Crud<Keyword>();
+            //_crudKeyword.InsertMany(allKeywords.ToArray());
         }
 
         public void FillListBox(IEnumerable<Keyword> keywords = null)
@@ -140,7 +149,7 @@ namespace MilitaryTCGUtility
 
         private void Search_TextChanged(object sender, EventArgs e)
         {
-            if (tBSearch.TextLength>2)
+            if (tBSearch.TextLength > 2)
             {
                 var result = _crudKeyword.MultipleFieldSearch(tBSearch.Text, "Name", "Description");
                 FillListBox(result);
