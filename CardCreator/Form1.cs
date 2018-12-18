@@ -148,7 +148,7 @@ namespace CardCreator
                 if (isInserted == true)
                 {
                     MessageBox.Show($"Card: {card} is inserted");
-                    LbCardList.Items.Add(card);
+                    FillListBox();
                 }
                 else
                 {
@@ -199,6 +199,7 @@ namespace CardCreator
         }
         private void BtnEditCard_Click(object sender, EventArgs e)
         {
+            var oldID = ((Card)(LbCardList.SelectedItem))._id;
             Card card = new Card
             {
                 Name = TbName.Text,
@@ -206,13 +207,15 @@ namespace CardCreator
                 Cost = (int)NudCost.Value,
                 STR = (int)NudSTR.Value,
                 Keywords = _currentCardKeywordList,
-                Description = TbCardDescription.Text
+                Description = TbCardDescription.Text,
+                _id = oldID
             };
-            bool isUpdated = _cardCrud.Update(card._id, card);
+            bool isUpdated = _cardCrud.Update(oldID, card);
             if (isUpdated == true)
             {
                 MessageBox.Show($"Card: {card} is updated");
                 ClearFormControls();
+                FillListBox();
             }
             else
             {
@@ -228,8 +231,8 @@ namespace CardCreator
                 bool isDeleted = _cardCrud.Delete(card._id);
                 if (isDeleted == true)
                 {
-                    MessageBox.Show($"Card: {card} is updated");
-                    LbCardList.Items.Remove(card);
+                    MessageBox.Show($"Card: {card} is delete");
+                    FillListBox();
                     ClearFormControls();
                 }
                 else

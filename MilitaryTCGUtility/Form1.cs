@@ -17,8 +17,8 @@ namespace MilitaryTCGUtility
         public Form1()
         {
             InitializeComponent();
-            const string ConnectionString = "mongodb://ohm:741895623ohm@test-shard-00-00-imtir.mongodb.net:27017,test-shard-00-01-imtir.mongodb.net:27017,test-shard-00-02-imtir.mongodb.net:27017/test?ssl=true&replicaSet=test-shard-0&authSource=admin&retryWrites=true";
-            MongoDbConnection.InitializeAndStartConnection(ConnectionString, databaseName: "MilitaryTCG");
+            const string CONNECTIONSTRING = "mongodb://ohm:741895623ohm@test-shard-00-00-imtir.mongodb.net:27017,test-shard-00-01-imtir.mongodb.net:27017,test-shard-00-02-imtir.mongodb.net:27017/test?ssl=true&replicaSet=test-shard-0&authSource=admin&retryWrites=true";
+            MongoDbConnection.InitializeAndStartConnection(CONNECTIONSTRING, databaseName: "MilitaryTCG");
             _crudKeyword = new Crud<Keyword>();
         }
 
