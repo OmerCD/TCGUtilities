@@ -52,10 +52,13 @@
             this.BtnEditCard = new System.Windows.Forms.Button();
             this.BtnDeleteCard = new System.Windows.Forms.Button();
             this.TbSearchText = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.NudAP = new System.Windows.Forms.NumericUpDown();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NudHP)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NudSTR)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NudCost)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NudAP)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -170,7 +173,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 144);
+            this.label4.Location = new System.Drawing.Point(12, 159);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(85, 13);
             this.label4.TabIndex = 1;
@@ -181,43 +184,48 @@
             this.TbName.Location = new System.Drawing.Point(54, 26);
             this.TbName.Name = "TbName";
             this.TbName.Size = new System.Drawing.Size(169, 20);
-            this.TbName.TabIndex = 2;
+            this.TbName.TabIndex = 0;
             // 
             // NudHP
             // 
             this.NudHP.Location = new System.Drawing.Point(54, 51);
             this.NudHP.Name = "NudHP";
             this.NudHP.Size = new System.Drawing.Size(169, 20);
-            this.NudHP.TabIndex = 3;
+            this.NudHP.TabIndex = 1;
             // 
             // NudSTR
             // 
             this.NudSTR.Location = new System.Drawing.Point(54, 76);
             this.NudSTR.Name = "NudSTR";
             this.NudSTR.Size = new System.Drawing.Size(169, 20);
-            this.NudSTR.TabIndex = 3;
+            this.NudSTR.TabIndex = 2;
             // 
             // NudCost
             // 
             this.NudCost.Location = new System.Drawing.Point(54, 101);
+            this.NudCost.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
             this.NudCost.Name = "NudCost";
             this.NudCost.Size = new System.Drawing.Size(169, 20);
             this.NudCost.TabIndex = 3;
             // 
             // TbCardDescription
             // 
-            this.TbCardDescription.Location = new System.Drawing.Point(12, 160);
+            this.TbCardDescription.Location = new System.Drawing.Point(12, 186);
             this.TbCardDescription.Multiline = true;
             this.TbCardDescription.Name = "TbCardDescription";
-            this.TbCardDescription.Size = new System.Drawing.Size(267, 199);
-            this.TbCardDescription.TabIndex = 2;
+            this.TbCardDescription.Size = new System.Drawing.Size(267, 173);
+            this.TbCardDescription.TabIndex = 5;
             // 
             // BtnCreateCard
             // 
             this.BtnCreateCard.Location = new System.Drawing.Point(292, 302);
             this.BtnCreateCard.Name = "BtnCreateCard";
             this.BtnCreateCard.Size = new System.Drawing.Size(177, 44);
-            this.BtnCreateCard.TabIndex = 4;
+            this.BtnCreateCard.TabIndex = 6;
             this.BtnCreateCard.Text = "Create Card";
             this.BtnCreateCard.UseVisualStyleBackColor = true;
             this.BtnCreateCard.Click += new System.EventHandler(this.BtnCreateCard_Click);
@@ -254,7 +262,7 @@
             this.BtnEditCard.Location = new System.Drawing.Point(485, 302);
             this.BtnEditCard.Name = "BtnEditCard";
             this.BtnEditCard.Size = new System.Drawing.Size(204, 44);
-            this.BtnEditCard.TabIndex = 4;
+            this.BtnEditCard.TabIndex = 7;
             this.BtnEditCard.Text = "Edit Card";
             this.BtnEditCard.UseVisualStyleBackColor = true;
             this.BtnEditCard.Click += new System.EventHandler(this.BtnEditCard_Click);
@@ -277,6 +285,27 @@
             this.TbSearchText.TabIndex = 7;
             this.TbSearchText.TextChanged += new System.EventHandler(this.TbSearchText_TextChanged);
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(12, 129);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(21, 13);
+            this.label7.TabIndex = 1;
+            this.label7.Text = "AP";
+            // 
+            // NudAP
+            // 
+            this.NudAP.Location = new System.Drawing.Point(54, 127);
+            this.NudAP.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.NudAP.Name = "NudAP";
+            this.NudAP.Size = new System.Drawing.Size(169, 20);
+            this.NudAP.TabIndex = 4;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -288,6 +317,7 @@
             this.Controls.Add(this.BtnDeleteCard);
             this.Controls.Add(this.BtnEditCard);
             this.Controls.Add(this.BtnCreateCard);
+            this.Controls.Add(this.NudAP);
             this.Controls.Add(this.NudCost);
             this.Controls.Add(this.NudSTR);
             this.Controls.Add(this.NudHP);
@@ -296,16 +326,19 @@
             this.Controls.Add(this.TbCardDescription);
             this.Controls.Add(this.TbName);
             this.Controls.Add(this.label2);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label3);
             this.Name = "Form1";
             this.Text = "Create Card";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NudHP)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NudSTR)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NudCost)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NudAP)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -337,6 +370,8 @@
         private System.Windows.Forms.Button BtnEditCard;
         private System.Windows.Forms.Button BtnDeleteCard;
         private System.Windows.Forms.TextBox TbSearchText;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.NumericUpDown NudAP;
     }
 }
 

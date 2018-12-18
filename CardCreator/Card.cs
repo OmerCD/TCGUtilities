@@ -11,8 +11,9 @@ namespace CardCreator
         public int HP { get; set; }
         public int STR { get; set; }
         public int Cost { get; set; }
+        public int AP { get; set; }
 
-        public Card(string name, string description, int hP, int sTR, int cost)
+        public Card(string name, string description, int hP, int sTR, int cost,int aP)
         {
             Name = name;
             Description = description;
@@ -20,6 +21,7 @@ namespace CardCreator
             HP = hP;
             STR = sTR;
             Cost = cost;
+            AP = aP;
         }
         public Card()
         {

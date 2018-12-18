@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Linq;
+using System.IO;
 
 namespace CardCreator
 {
@@ -26,9 +27,10 @@ namespace CardCreator
             Keyword currentKeyword = (Keyword)CbKeywords.SelectedItem;
             _currentCardKeywordList.Add(currentKeyword);
             string keywordDescription = CreateDescriptonNew();
-            LbCurrentKeywords.Items.Add(keywordDescription);
             FlwKeywords.Controls.Clear();
-            TbCardDescription.Text += currentKeyword.Name + ":" + keywordDescription + "\n";
+            string keywordFullText = currentKeyword.Name + ":" + keywordDescription;
+            LbCurrentKeywords.Items.Add(keywordFullText);
+            TbCardDescription.Text += keywordFullText + "\n";
             FillCombobox();
         }
         private string CreateDescripton()
@@ -141,7 +143,8 @@ namespace CardCreator
                     Cost = (int)NudCost.Value,
                     STR = (int)NudSTR.Value,
                     Keywords = _currentCardKeywordList,
-                    Description = TbCardDescription.Text
+                    Description = TbCardDescription.Text,
+                    AP = (int)NudAP.Value
                 };
                 ClearFormControls();
                 bool isInserted = _cardCrud.Insert(card);
@@ -177,9 +180,12 @@ namespace CardCreator
         {
             TbName.Text = string.Empty;
             TbCardDescription.Text = string.Empty;
-            NudHP.Value = 0;
-            NudSTR.Value = 0;
-            NudCost.Value = 0;
+            NudHP.Value = 1;
+            NudSTR.Value = 1;
+            NudCost.Value = 1;
+            NudAP.Value = 1;
+            LbCurrentKeywords.Items.Clear();
+            _currentCardKeywordList.Clear();
         }
         private void LbCardList_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -192,6 +198,7 @@ namespace CardCreator
                 NudCost.Value = currentCard.Cost;
                 NudHP.Value = currentCard.HP;
                 NudSTR.Value = currentCard.STR;
+                NudAP.Value = currentCard.AP;
                 _currentCardKeywordList = currentCard.Keywords;
                 LbCurrentKeywords.Items.Clear();
                 LbCurrentKeywords.Items.AddRange(TbCardDescription.Text.Split('\n'));// \n çünkü chichi 
@@ -206,6 +213,7 @@ namespace CardCreator
                 HP = (int)NudHP.Value,
                 Cost = (int)NudCost.Value,
                 STR = (int)NudSTR.Value,
+                AP = (int)NudAP.Value,
                 Keywords = _currentCardKeywordList,
                 Description = TbCardDescription.Text,
                 _id = oldID
@@ -271,6 +279,11 @@ namespace CardCreator
             {
                 FillListBox();
             }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 
