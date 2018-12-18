@@ -26,7 +26,7 @@ namespace CardCreator
         {
             Keyword currentKeyword = (Keyword)CbKeywords.SelectedItem;
             _currentCardKeywordList.Add(currentKeyword);
-            string keywordDescription = CreateDescripton();
+            string keywordDescription = CreateDescriptonNew();
             LbCurrentKeywords.Items.Add(keywordDescription);
             FlwKeywords.Controls.Clear();
             TbCardDescription.Text = currentKeyword.Name + ":" + keywordDescription + "\n";
@@ -47,6 +47,26 @@ namespace CardCreator
             return description;
         }
 
+
+
+        private string CreateDescriptonNew()
+        {
+            string description = "";
+            foreach (var control in FlwKeywords.Controls)
+            {
+                if (control is TextBox textbox)
+                {
+                    description += textbox.Text + " ";
+                }
+                if (control is ComboBox comboBox)
+                {
+                    description += comboBox.Text + " ";
+                }
+            }
+            return description;
+        }
+
+        private readonly string[] _attributes = { "HP", "AP", "STR", "Turns" };
         private void CbKeywords_SelectedIndexChanged(object sender, EventArgs e)
         {
             var keyword = (Keyword)CbKeywords.SelectedItem;
@@ -61,7 +81,13 @@ namespace CardCreator
                     TextBox textBox = new TextBox();
                     textBox.Name = lastIndex.ToString();
                     textBox.Size = new System.Drawing.Size(FlwKeywords.Size.Width - 120, textBox.Size.Height);
+                    var combobox = new ComboBox();
+                    combobox.Items.AddRange(_attributes);
+                    combobox.Size = new System.Drawing.Size(100, combobox.Size.Height);
+                    combobox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                    combobox.AutoCompleteSource = AutoCompleteSource.ListItems;
                     FlwKeywords.Controls.Add(textBox);
+                    FlwKeywords.Controls.Add(combobox);
 
                 } while (lastIndex < keyword.Description.LastIndexOf("$"));
             }
