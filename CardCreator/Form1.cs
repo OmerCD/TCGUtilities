@@ -1,8 +1,8 @@
 ﻿using MongoCRUD;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using System.Linq;
 
 namespace CardCreator
 {
@@ -17,8 +17,7 @@ namespace CardCreator
             MongoDbConnection.InitializeAndStartConnection(ConnectionString, databaseName: "MilitaryTCG");
             _keywordCrud = new Crud<Keyword>();
             _cardCrud = new Crud<Card>();
-            var allKeywords = _keywordCrud.GetAll().ToArray();
-            CbKeywords.Items.AddRange(allKeywords);
+            FillCombobox();
             FillListBox();
         }
         List<Keyword> _currentCardKeywordList = new List<Keyword>();
@@ -29,9 +28,9 @@ namespace CardCreator
             string keywordDescription = CreateDescriptonNew();
             LbCurrentKeywords.Items.Add(keywordDescription);
             FlwKeywords.Controls.Clear();
-            TbCardDescription.Text = currentKeyword.Name + ":" + keywordDescription + "\n";
+            TbCardDescription.Text += currentKeyword.Name + ":" + keywordDescription + "\n";
+            FillCombobox();
         }
-
         private string CreateDescripton()
         {
             string description = TbKeywordDescription.Text;
@@ -46,9 +45,6 @@ namespace CardCreator
             }
             return description;
         }
-
-
-
         private string CreateDescriptonNew()
         {
             string description = "";
@@ -65,7 +61,6 @@ namespace CardCreator
             }
             return description;
         }
-
         private readonly string[] _attributes = { "HP", "AP", "STR", "Turns" };
         private void CbKeywords_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -92,8 +87,6 @@ namespace CardCreator
                 } while (lastIndex < keyword.Description.LastIndexOf("$"));
             }
         }
-
-
         private void BtnDeleteKeyword_Click(object sender, EventArgs e)
         {
             int selectedIndex = LbCurrentKeywords.SelectedIndex;
@@ -104,9 +97,9 @@ namespace CardCreator
                 string oldKeyword = _currentCardKeywordList[selectedIndex] + ":" + text + "\n";// \n çünkü chichi
                 TbCardDescription.Text = TbCardDescription.Text.Replace(oldKeyword, string.Empty);
                 _currentCardKeywordList.RemoveAt(selectedIndex);
+                FillCombobox();
             }
         }
-
         private void BtnEditKeyword_Click(object sender, EventArgs e)
         {
             int selectedIndex = LbCurrentKeywords.SelectedIndex;
@@ -118,6 +111,7 @@ namespace CardCreator
                 TbCardDescription.Text = TbCardDescription.Text.Replace(oldKeyword, string.Empty);
                 CbKeywords.SelectedItem = _currentCardKeywordList[selectedIndex];
                 _currentCardKeywordList.RemoveAt(selectedIndex);
+                FillCombobox();
             }
         }
         void FillListBox()
@@ -128,28 +122,57 @@ namespace CardCreator
         }
         private void BtnCreateCard_Click(object sender, EventArgs e)
         {
-            Card card = new Card
+            if (string.IsNullOrWhiteSpace(TbName.Text) == true)
             {
-                Name = TbName.Text,
-                HP = (int)NudHP.Value,
-                Cost = (int)NudCost.Value,
-                STR = (int)NudSTR.Value,
-                Keywords = _currentCardKeywordList,
-                Description = TbCardDescription.Text
-            };
-            ClearFormControls();
-            bool isInserted = _cardCrud.Insert(card);
-            if (isInserted == true)
+                MessageBox.Show("Please Enter A card Name");
+
+            }
+            else if (IsCardNameUnique(TbName.Text) == false)
             {
-                MessageBox.Show($"Card: {card} is inserted");
-                LbCardList.Items.Add(card);
+                MessageBox.Show("CardName must be unique");
             }
             else
             {
-                MessageBox.Show("Chichi ile konuşuyor olur öyle");
+
+                Card card = new Card
+                {
+                    Name = TbName.Text,
+                    HP = (int)NudHP.Value,
+                    Cost = (int)NudCost.Value,
+                    STR = (int)NudSTR.Value,
+                    Keywords = _currentCardKeywordList,
+                    Description = TbCardDescription.Text
+                };
+                ClearFormControls();
+                bool isInserted = _cardCrud.Insert(card);
+                if (isInserted == true)
+                {
+                    MessageBox.Show($"Card: {card} is inserted");
+                    LbCardList.Items.Add(card);
+                }
+                else
+                {
+                    MessageBox.Show("Chichi ile konuşuyor olur öyle");
+                }
+            }
+
+        }
+        bool IsKeywordAdded(string keywordName)
+        {
+            return _currentCardKeywordList.Any(x => x.Name == keywordName);
+        }
+        private bool IsCardNameUnique(string cardName)
+        {
+            var cardList = _cardCrud.Search("Name", cardName);
+            if (cardList.Count <= 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
-
         private void ClearFormControls()
         {
             TbName.Text = string.Empty;
@@ -158,7 +181,6 @@ namespace CardCreator
             NudSTR.Value = 0;
             NudCost.Value = 0;
         }
-
         private void LbCardList_SelectedIndexChanged(object sender, EventArgs e)
         {
             int selectedIndex = LbCardList.SelectedIndex;
@@ -175,7 +197,6 @@ namespace CardCreator
                 LbCurrentKeywords.Items.AddRange(TbCardDescription.Text.Split('\n'));// \n çünkü chichi 
             }
         }
-
         private void BtnEditCard_Click(object sender, EventArgs e)
         {
             Card card = new Card
@@ -198,7 +219,6 @@ namespace CardCreator
                 MessageBox.Show("Chichi ile konuşuyor olur öyle");
             }
         }
-
         private void BtnDeleteCard_Click(object sender, EventArgs e)
         {
             int selectedIndex = LbCardList.SelectedIndex;
@@ -218,7 +238,15 @@ namespace CardCreator
                 }
             }
         }
-
+        void FillCombobox()
+        {
+            CbKeywords.Items.Clear();
+            var allKeywords = _keywordCrud.GetAll()
+                .Where(x=> IsKeywordAdded(x.Name) == false).ToArray();
+            CbKeywords.Items.AddRange(allKeywords);
+            CbKeywords.Text = string.Empty;
+            TbKeywordDescription.Text = string.Empty;
+        }
         private void TbSearchText_TextChanged(object sender, EventArgs e)
         {
             if (TbSearchText.TextLength > 2)
@@ -242,4 +270,5 @@ namespace CardCreator
             }
         }
     }
+
 }
