@@ -201,7 +201,7 @@ namespace CardCreator
                 NudAP.Value = currentCard.AP;
                 _currentCardKeywordList = currentCard.Keywords;
                 LbCurrentKeywords.Items.Clear();
-                LbCurrentKeywords.Items.AddRange(TbCardDescription.Text.Split('\n'));// \n çünkü chichi 
+                LbCurrentKeywords.Items.AddRange(TbCardDescription.Text.Split('\n').Where(x=> string.IsNullOrWhiteSpace(x)== false).ToArray());// \n çünkü chichi 
             }
         }
         private void BtnEditCard_Click(object sender, EventArgs e)
