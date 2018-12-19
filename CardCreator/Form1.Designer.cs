@@ -54,6 +54,7 @@
             this.TbSearchText = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.NudAP = new System.Windows.Forms.NumericUpDown();
+            this.dField = new CardCreator.Description();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NudHP)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NudSTR)).BeginInit();
@@ -214,10 +215,10 @@
             // 
             // TbCardDescription
             // 
-            this.TbCardDescription.Location = new System.Drawing.Point(12, 186);
+            this.TbCardDescription.Location = new System.Drawing.Point(134, 156);
             this.TbCardDescription.Multiline = true;
             this.TbCardDescription.Name = "TbCardDescription";
-            this.TbCardDescription.Size = new System.Drawing.Size(267, 173);
+            this.TbCardDescription.Size = new System.Drawing.Size(65, 20);
             this.TbCardDescription.TabIndex = 5;
             // 
             // BtnCreateCard
@@ -306,11 +307,20 @@
             this.NudAP.Size = new System.Drawing.Size(169, 20);
             this.NudAP.TabIndex = 4;
             // 
+            // dField
+            // 
+            this.dField.BackColor = System.Drawing.Color.Silver;
+            this.dField.Location = new System.Drawing.Point(12, 182);
+            this.dField.Name = "dField";
+            this.dField.Size = new System.Drawing.Size(251, 177);
+            this.dField.TabIndex = 8;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1174, 384);
+            this.Controls.Add(this.dField);
             this.Controls.Add(this.TbSearchText);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.LbCardList);
@@ -372,6 +382,7 @@
         private System.Windows.Forms.TextBox TbSearchText;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.NumericUpDown NudAP;
+        private Description dField;
     }
 }
 

@@ -14,12 +14,16 @@ namespace CardCreator
         public Form1()
         {
             InitializeComponent();
-            const string ConnectionString = "mongodb://ohm:741895623ohm@test-shard-00-00-imtir.mongodb.net:27017,test-shard-00-01-imtir.mongodb.net:27017,test-shard-00-02-imtir.mongodb.net:27017/test?ssl=true&replicaSet=test-shard-0&authSource=admin&retryWrites=true";
-            MongoDbConnection.InitializeAndStartConnection(ConnectionString, databaseName: "MilitaryTCG");
-            _keywordCrud = new Crud<Keyword>();
-            _cardCrud = new Crud<Card>();
-            FillCombobox();
-            FillListBox();
+
+            //var test = KeywordAnalyzer.GetVariantFields("{$:HP} Health, {$:AP} ActionPoint");
+            dField.CreateKeywordFields("{$:HP} Health, {$:AP} ActionPoint");
+
+            //const string ConnectionString = "mongodb://ohm:741895623ohm@test-shard-00-00-imtir.mongodb.net:27017,test-shard-00-01-imtir.mongodb.net:27017,test-shard-00-02-imtir.mongodb.net:27017/test?ssl=true&replicaSet=test-shard-0&authSource=admin&retryWrites=true";
+            //MongoDbConnection.InitializeAndStartConnection(ConnectionString, databaseName: "MilitaryTCG");
+            //_keywordCrud = new Crud<Keyword>();
+            //_cardCrud = new Crud<Card>();
+            //FillCombobox();
+            //FillListBox();
         }
         List<Keyword> _currentCardKeywordList = new List<Keyword>();
         private void BtnAddKeyword_Click(object sender, EventArgs e)
@@ -33,7 +37,7 @@ namespace CardCreator
             TbCardDescription.Text += keywordFullText + "\n";
             FillCombobox();
         }
-        private string CreateDescripton()
+        private string CreateDescription()
         {
             string description = TbKeywordDescription.Text;
             foreach (var control in FlwKeywords.Controls)
@@ -86,7 +90,7 @@ namespace CardCreator
                     FlwKeywords.Controls.Add(textBox);
                     FlwKeywords.Controls.Add(combobox);
 
-                } while (lastIndex < keyword.Description.LastIndexOf("$"));
+                } while (lastIndex < keyword.Description.LastIndexOf("$", StringComparison.Ordinal));
             }
         }
         private void BtnDeleteKeyword_Click(object sender, EventArgs e)
