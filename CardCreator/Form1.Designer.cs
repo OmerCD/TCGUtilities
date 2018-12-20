@@ -55,6 +55,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.NudAP = new System.Windows.Forms.NumericUpDown();
             this.dField = new CardCreator.Description();
+            this.bTestKeywords = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NudHP)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NudSTR)).BeginInit();
@@ -315,11 +316,22 @@
             this.dField.Size = new System.Drawing.Size(251, 177);
             this.dField.TabIndex = 8;
             // 
+            // bTestKeywords
+            // 
+            this.bTestKeywords.Location = new System.Drawing.Point(91, 362);
+            this.bTestKeywords.Name = "bTestKeywords";
+            this.bTestKeywords.Size = new System.Drawing.Size(81, 23);
+            this.bTestKeywords.TabIndex = 9;
+            this.bTestKeywords.Text = "TestKeywords";
+            this.bTestKeywords.UseVisualStyleBackColor = true;
+            this.bTestKeywords.Click += new System.EventHandler(this.TestKeywords_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1174, 384);
+            this.ClientSize = new System.Drawing.Size(1174, 397);
+            this.Controls.Add(this.bTestKeywords);
             this.Controls.Add(this.dField);
             this.Controls.Add(this.TbSearchText);
             this.Controls.Add(this.label6);
@@ -383,6 +395,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.NumericUpDown NudAP;
         private Description dField;
+        private System.Windows.Forms.Button bTestKeywords;
     }
 }
 

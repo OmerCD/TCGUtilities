@@ -15,8 +15,7 @@ namespace CardCreator
         {
             InitializeComponent();
 
-            //var test = KeywordAnalyzer.GetVariantFields("{$:HP} Health, {$:AP} ActionPoint");
-            dField.CreateKeywordFields("{$:HP} Health, {$:AP} ActionPoint");
+            dField.CreateKeywordFields("This card can heal an allied unit by {$:HP} but it costs {$:AP}.");
 
             //const string ConnectionString = "mongodb://ohm:741895623ohm@test-shard-00-00-imtir.mongodb.net:27017,test-shard-00-01-imtir.mongodb.net:27017,test-shard-00-02-imtir.mongodb.net:27017/test?ssl=true&replicaSet=test-shard-0&authSource=admin&retryWrites=true";
             //MongoDbConnection.InitializeAndStartConnection(ConnectionString, databaseName: "MilitaryTCG");
@@ -25,12 +24,17 @@ namespace CardCreator
             //FillCombobox();
             //FillListBox();
         }
+
+        private void TestKeywords_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(dField.GetDescriptionText());
+        }
         List<Keyword> _currentCardKeywordList = new List<Keyword>();
         private void BtnAddKeyword_Click(object sender, EventArgs e)
         {
             Keyword currentKeyword = (Keyword)CbKeywords.SelectedItem;
             _currentCardKeywordList.Add(currentKeyword);
-            string keywordDescription = CreateDescriptonNew();
+            string keywordDescription = CreateDescriptionNew();
             FlwKeywords.Controls.Clear();
             string keywordFullText = currentKeyword.Name + ":" + keywordDescription;
             LbCurrentKeywords.Items.Add(keywordFullText);
@@ -51,7 +55,7 @@ namespace CardCreator
             }
             return description;
         }
-        private string CreateDescriptonNew()
+        private string CreateDescriptionNew()
         {
             string description = "";
             foreach (var control in FlwKeywords.Controls)
@@ -289,6 +293,7 @@ namespace CardCreator
         {
 
         }
+
     }
 
 }

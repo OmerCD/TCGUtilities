@@ -8,13 +8,22 @@ namespace CardCreator
 {
     public static class KeywordAnalyzer
     {
+        /// <summary>
+        /// Only replaces the first occurence
+        /// </summary>
+        /// <param name="sourceText"></param>
+        /// <param name="toReplace"></param>
+        /// <param name="replacingText"></param>
+        /// <param name="lastIndex"></param>
+        /// <returns></returns>
+
         public static ICollection<VariantField> GetVariantFields(string keywordDescription) // {$:AP} - {$:Keyword}
         {
 
             var endingTagIndex = keywordDescription.LastIndexOf("{$:", StringComparison.Ordinal);
 
             var variants = new List<VariantField>();
-            int lastIndex = 0;
+            var lastIndex = 0;
 
             do
             {
@@ -24,6 +33,7 @@ namespace CardCreator
                 {
                     variants.Add(new VariantField(res));
                 }
+
 
             } while (lastIndex < endingTagIndex);
 
