@@ -4,69 +4,74 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Linq;
 using System.IO;
+using CardCreator.Enum;
 
 namespace CardCreator
 {
     public partial class Form1 : Form
     {
+        private List<Keyword> _currentCardKeywordList = new List<Keyword>();
+
         private readonly Crud<Keyword> _keywordCrud;
         private readonly Crud<Card> _cardCrud;
+
         public Form1()
         {
             InitializeComponent();
 
-            dField.CreateKeywordFields("This card can heal an allied unit by {$:HP} but it costs {$:AP}.");
 
-            //const string ConnectionString = "mongodb://ohm:741895623ohm@test-shard-00-00-imtir.mongodb.net:27017,test-shard-00-01-imtir.mongodb.net:27017,test-shard-00-02-imtir.mongodb.net:27017/test?ssl=true&replicaSet=test-shard-0&authSource=admin&retryWrites=true";
-            //MongoDbConnection.InitializeAndStartConnection(ConnectionString, databaseName: "MilitaryTCG");
-            //_keywordCrud = new Crud<Keyword>();
-            //_cardCrud = new Crud<Card>();
-            //FillCombobox();
-            //FillListBox();
+            const string ConnectionString = "mongodb://ohm:741895623ohm@test-shard-00-00-imtir.mongodb.net:27017,test-shard-00-01-imtir.mongodb.net:27017,test-shard-00-02-imtir.mongodb.net:27017/test?ssl=true&replicaSet=test-shard-0&authSource=admin&retryWrites=true";
+            MongoDbConnection.InitializeAndStartConnection(ConnectionString, databaseName: "MilitaryTCG");
+            _keywordCrud = new Crud<Keyword>();
+            _cardCrud = new Crud<Card>();
+            FillRarityCombobox();
+            FillCombobox();
+            FillListBox();
         }
 
-        private void TestKeywords_Click(object sender, EventArgs e)
+        private void FillRarityCombobox()
         {
-            MessageBox.Show(dField.GetDescriptionText());
+            cBRarities.Items.Clear();
+            cBRarities.DataSource = System.Enum.GetValues(typeof(Rarity));
+            if (cBRarities.Items.Count > 0)
+            {
+                cBRarities.SelectedIndex = 0;
+            }
         }
-        List<Keyword> _currentCardKeywordList = new List<Keyword>();
+
         private void BtnAddKeyword_Click(object sender, EventArgs e)
         {
-            Keyword currentKeyword = (Keyword)CbKeywords.SelectedItem;
+            var currentKeyword = (Keyword)CbKeywords.SelectedItem;
             _currentCardKeywordList.Add(currentKeyword);
-            string keywordDescription = CreateDescriptionNew();
+            var keywordDescription = CreateDescriptionNew();
             FlwKeywords.Controls.Clear();
-            string keywordFullText = currentKeyword.Name + ":" + keywordDescription;
+            var keywordFullText = currentKeyword.Name + ":" + keywordDescription;
             LbCurrentKeywords.Items.Add(keywordFullText);
             TbCardDescription.Text += keywordFullText + "\n";
             FillCombobox();
         }
         private string CreateDescription()
         {
-            string description = TbKeywordDescription.Text;
-            foreach (var control in FlwKeywords.Controls)
+            var description = TbKeywordDescription.Text;
+            foreach (Control control in FlwKeywords.Controls)
             {
-                if (control is TextBox textbox)
+                if (control is TextBox)
                 {
-                    int index = int.Parse(textbox.Name);
+                    var index = int.Parse(control.Name);
                     description = description.Remove(index, 1);
-                    description = description.Insert(index, textbox.Text);
+                    description = description.Insert(index, control.Text);
                 }
             }
             return description;
         }
         private string CreateDescriptionNew()
         {
-            string description = "";
-            foreach (var control in FlwKeywords.Controls)
+            var description = "";
+            foreach (Control control in FlwKeywords.Controls)
             {
-                if (control is TextBox textbox)
+                if (control is TextBox || control is ComboBox)
                 {
-                    description += textbox.Text + " ";
-                }
-                if (control is ComboBox comboBox)
-                {
-                    description += comboBox.Text + " ";
+                    description += control.Text + " ";
                 }
             }
             return description;
@@ -79,12 +84,14 @@ namespace CardCreator
             TbKeywordDescription.Text = keyword.Description;
             if (keyword.Description.Contains("$") == true)
             {
-                int lastIndex = -1;
+                var lastIndex = -1;
                 do
                 {
-                    lastIndex = keyword.Description.IndexOf("$", (lastIndex + 1));
-                    TextBox textBox = new TextBox();
-                    textBox.Name = lastIndex.ToString();
+                    lastIndex = keyword.Description.IndexOf("$", (lastIndex + 1), StringComparison.Ordinal);
+                    var textBox = new TextBox
+                    {
+                        Name = lastIndex.ToString()
+                    };
                     textBox.Size = new System.Drawing.Size(FlwKeywords.Size.Width - 120, textBox.Size.Height);
                     var combobox = new ComboBox();
                     combobox.Items.AddRange(_attributes);
@@ -99,12 +106,12 @@ namespace CardCreator
         }
         private void BtnDeleteKeyword_Click(object sender, EventArgs e)
         {
-            int selectedIndex = LbCurrentKeywords.SelectedIndex;
+            var selectedIndex = LbCurrentKeywords.SelectedIndex;
             if (selectedIndex > -1)
             {
                 var text = LbCurrentKeywords.SelectedItem.ToString();
                 LbCurrentKeywords.Items.RemoveAt(selectedIndex);
-                string oldKeyword = _currentCardKeywordList[selectedIndex] + ":" + text + "\n";// \n çünkü chichi
+                var oldKeyword = _currentCardKeywordList[selectedIndex] + ":" + text + "\n";// \n çünkü chichi
                 TbCardDescription.Text = TbCardDescription.Text.Replace(oldKeyword, string.Empty);
                 _currentCardKeywordList.RemoveAt(selectedIndex);
                 FillCombobox();
@@ -112,12 +119,12 @@ namespace CardCreator
         }
         private void BtnEditKeyword_Click(object sender, EventArgs e)
         {
-            int selectedIndex = LbCurrentKeywords.SelectedIndex;
+            var selectedIndex = LbCurrentKeywords.SelectedIndex;
             if (selectedIndex > -1)
             {
                 var text = LbCurrentKeywords.SelectedItem.ToString();
                 LbCurrentKeywords.Items.RemoveAt(selectedIndex);
-                string oldKeyword = _currentCardKeywordList[selectedIndex] + ":" + text + "\n"; // \n çünkü chichi
+                var oldKeyword = _currentCardKeywordList[selectedIndex] + ":" + text + "\n"; // \n çünkü chichi
                 TbCardDescription.Text = TbCardDescription.Text.Replace(oldKeyword, string.Empty);
                 CbKeywords.SelectedItem = _currentCardKeywordList[selectedIndex];
                 _currentCardKeywordList.RemoveAt(selectedIndex);
@@ -144,7 +151,7 @@ namespace CardCreator
             else
             {
 
-                Card card = new Card
+                var card = new Card
                 {
                     Name = TbName.Text,
                     HP = (int)NudHP.Value,
@@ -152,10 +159,11 @@ namespace CardCreator
                     STR = (int)NudSTR.Value,
                     Keywords = _currentCardKeywordList,
                     Description = TbCardDescription.Text,
-                    AP = (int)NudAP.Value
+                    AP = (int)NudAP.Value,
+                    Rarity = (Rarity)cBRarities.SelectedItem
                 };
                 ClearFormControls();
-                bool isInserted = _cardCrud.Insert(card);
+                var isInserted = _cardCrud.Insert(card);
                 if (isInserted == true)
                 {
                     MessageBox.Show($"Card: {card} is inserted");
@@ -197,16 +205,17 @@ namespace CardCreator
         }
         private void LbCardList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int selectedIndex = LbCardList.SelectedIndex;
+            var selectedIndex = LbCardList.SelectedIndex;
             if (selectedIndex > -1)
             {
-                Card currentCard = (Card)LbCardList.SelectedItem;
+                var currentCard = (Card)LbCardList.SelectedItem;
                 TbName.Text = currentCard.Name;
                 TbCardDescription.Text = currentCard.Description;
                 NudCost.Value = currentCard.Cost;
                 NudHP.Value = currentCard.HP;
                 NudSTR.Value = currentCard.STR;
                 NudAP.Value = currentCard.AP;
+                cBRarities.SelectedIndex = (int)currentCard.Rarity;
                 _currentCardKeywordList = currentCard.Keywords;
                 LbCurrentKeywords.Items.Clear();
                 LbCurrentKeywords.Items.AddRange(TbCardDescription.Text.Split('\n').Where(x=> string.IsNullOrWhiteSpace(x)== false).ToArray());// \n çünkü chichi 
@@ -215,7 +224,7 @@ namespace CardCreator
         private void BtnEditCard_Click(object sender, EventArgs e)
         {
             var oldID = ((Card)(LbCardList.SelectedItem))._id;
-            Card card = new Card
+            var card = new Card
             {
                 Name = TbName.Text,
                 HP = (int)NudHP.Value,
@@ -224,9 +233,10 @@ namespace CardCreator
                 AP = (int)NudAP.Value,
                 Keywords = _currentCardKeywordList,
                 Description = TbCardDescription.Text,
-                _id = oldID
+                _id = oldID,
+                Rarity = (Rarity)cBRarities.SelectedItem
             };
-            bool isUpdated = _cardCrud.Update(oldID, card);
+            var isUpdated = _cardCrud.Update(oldID, card);
             if (isUpdated == true)
             {
                 MessageBox.Show($"Card: {card} is updated");
@@ -240,11 +250,11 @@ namespace CardCreator
         }
         private void BtnDeleteCard_Click(object sender, EventArgs e)
         {
-            int selectedIndex = LbCardList.SelectedIndex;
+            var selectedIndex = LbCardList.SelectedIndex;
             if (selectedIndex > -1)
             {
-                Card card = (Card)LbCardList.SelectedItem;
-                bool isDeleted = _cardCrud.Delete(card._id);
+                var card = (Card)LbCardList.SelectedItem;
+                var isDeleted = _cardCrud.Delete(card._id);
                 if (isDeleted == true)
                 {
                     MessageBox.Show($"Card: {card} is delete");
@@ -270,10 +280,10 @@ namespace CardCreator
         {
             if (TbSearchText.TextLength > 2)
             {
-                List<Card> cardsInListbox = new List<Card>();
+                var cardsInListbox = new List<Card>();
                 foreach (Card item in LbCardList.Items)
                 {
-                    string searchTextAsLower = TbSearchText.Text.ToLower();
+                    var searchTextAsLower = TbSearchText.Text.ToLower();
                     if (item.Name.ToLower().Contains(searchTextAsLower) == true ||
                         item.Description.ToLower().Contains(searchTextAsLower))
                     {

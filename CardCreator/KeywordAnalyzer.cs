@@ -8,15 +8,6 @@ namespace CardCreator
 {
     public static class KeywordAnalyzer
     {
-        /// <summary>
-        /// Only replaces the first occurence
-        /// </summary>
-        /// <param name="sourceText"></param>
-        /// <param name="toReplace"></param>
-        /// <param name="replacingText"></param>
-        /// <param name="lastIndex"></param>
-        /// <returns></returns>
-
         public static ICollection<VariantField> GetVariantFields(string keywordDescription) // {$:AP} - {$:Keyword}
         {
 
@@ -29,7 +20,7 @@ namespace CardCreator
             {
                 lastIndex = keywordDescription.IndexOf("{$:", lastIndex, StringComparison.Ordinal);
                 var variantName = GetVariantName(keywordDescription, ref lastIndex);
-                if (Enum.TryParse<Variant>(variantName, out var res))
+                if (System.Enum.TryParse<Variant>(variantName, out var res))
                 {
                     variants.Add(new VariantField(res));
                 }

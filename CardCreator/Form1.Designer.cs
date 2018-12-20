@@ -54,8 +54,8 @@
             this.TbSearchText = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.NudAP = new System.Windows.Forms.NumericUpDown();
-            this.dField = new CardCreator.Description();
-            this.bTestKeywords = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.cBRarities = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NudHP)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NudSTR)).BeginInit();
@@ -175,7 +175,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 159);
+            this.label4.Location = new System.Drawing.Point(12, 207);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(85, 13);
             this.label4.TabIndex = 1;
@@ -216,10 +216,10 @@
             // 
             // TbCardDescription
             // 
-            this.TbCardDescription.Location = new System.Drawing.Point(134, 156);
+            this.TbCardDescription.Location = new System.Drawing.Point(15, 233);
             this.TbCardDescription.Multiline = true;
             this.TbCardDescription.Name = "TbCardDescription";
-            this.TbCardDescription.Size = new System.Drawing.Size(65, 20);
+            this.TbCardDescription.Size = new System.Drawing.Size(264, 174);
             this.TbCardDescription.TabIndex = 5;
             // 
             // BtnCreateCard
@@ -308,31 +308,31 @@
             this.NudAP.Size = new System.Drawing.Size(169, 20);
             this.NudAP.TabIndex = 4;
             // 
-            // dField
+            // label8
             // 
-            this.dField.BackColor = System.Drawing.Color.Silver;
-            this.dField.Location = new System.Drawing.Point(12, 182);
-            this.dField.Name = "dField";
-            this.dField.Size = new System.Drawing.Size(251, 177);
-            this.dField.TabIndex = 8;
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(12, 156);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(34, 13);
+            this.label8.TabIndex = 8;
+            this.label8.Text = "Rarity";
             // 
-            // bTestKeywords
+            // cBRarities
             // 
-            this.bTestKeywords.Location = new System.Drawing.Point(91, 362);
-            this.bTestKeywords.Name = "bTestKeywords";
-            this.bTestKeywords.Size = new System.Drawing.Size(81, 23);
-            this.bTestKeywords.TabIndex = 9;
-            this.bTestKeywords.Text = "TestKeywords";
-            this.bTestKeywords.UseVisualStyleBackColor = true;
-            this.bTestKeywords.Click += new System.EventHandler(this.TestKeywords_Click);
+            this.cBRarities.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cBRarities.FormattingEnabled = true;
+            this.cBRarities.Location = new System.Drawing.Point(54, 153);
+            this.cBRarities.Name = "cBRarities";
+            this.cBRarities.Size = new System.Drawing.Size(171, 21);
+            this.cBRarities.TabIndex = 9;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1174, 397);
-            this.Controls.Add(this.bTestKeywords);
-            this.Controls.Add(this.dField);
+            this.ClientSize = new System.Drawing.Size(1174, 420);
+            this.Controls.Add(this.cBRarities);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.TbSearchText);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.LbCardList);
@@ -394,8 +394,8 @@
         private System.Windows.Forms.TextBox TbSearchText;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.NumericUpDown NudAP;
-        private Description dField;
-        private System.Windows.Forms.Button bTestKeywords;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.ComboBox cBRarities;
     }
 }
 

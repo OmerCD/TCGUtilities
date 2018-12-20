@@ -58,7 +58,7 @@ namespace CardCreator
             }
             _valueControl.Location = _location;
             Controls.Add(_valueControl);
-            _variantName = Enum.GetName(typeof(Variant), variant);;
+            _variantName = System.Enum.GetName(typeof(Variant), variant);;
             lKeywordName.Text = _variantName;
         }
 
