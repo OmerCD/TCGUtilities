@@ -330,7 +330,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1174, 420);
+            this.ClientSize = new System.Drawing.Size(1174, 501);
             this.Controls.Add(this.cBRarities);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.TbSearchText);
