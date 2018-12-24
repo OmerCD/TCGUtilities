@@ -1,6 +1,7 @@
 ﻿using MongoCRUD.Interfaces;
 using System.Collections.Generic;
 using CardCreator.Enum;
+using FactionEditor;
 
 namespace CardCreator
 {
@@ -14,8 +15,9 @@ namespace CardCreator
         public int Cost { get; set; }
         public int AP { get; set; }
         public Rarity Rarity { get; set; }
+        public Faction Faction { get; set; }
 
-        public Card(string name, string description, int hP, int sTR, int cost,int aP, Rarity rarity)
+        public Card(string name, string description, int hP, int sTR, int cost,int aP, Rarity rarity, Faction faction)
         {
             Name = name;
             Description = description;
@@ -25,6 +27,7 @@ namespace CardCreator
             Cost = cost;
             AP = aP;
             Rarity = rarity;
+            Faction = faction;
         }
         public Card()
         {

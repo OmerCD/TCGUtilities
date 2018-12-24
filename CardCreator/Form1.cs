@@ -14,6 +14,7 @@ namespace CardCreator
 
         private readonly Crud<Keyword> _keywordCrud;
         private readonly Crud<Card> _cardCrud;
+        private readonly Crud<FactionEditor.Faction> _crudFaction;
 
         public Form1()
         {
@@ -24,12 +25,25 @@ namespace CardCreator
             MongoDbConnection.InitializeAndStartConnection(ConnectionString, databaseName: "MilitaryTCG");
             _keywordCrud = new Crud<Keyword>();
             _cardCrud = new Crud<Card>();
-            FillRarityCombobox();
+            _crudFaction = new Crud<FactionEditor.Faction>();
+            FillRarityComboBox();
+            FillFactionComboBox();
             FillCombobox();
             FillListBox();
         }
 
-        private void FillRarityCombobox()
+        private void FillFactionComboBox()
+        {
+            cBFactions.Items.Clear();
+            var factions = _crudFaction.GetAll();
+            cBFactions.Items.AddRange(factions.ToArray());
+            if (cBFactions.Items.Count > 0)
+            {
+                cBFactions.SelectedIndex = 0;
+            }
+        }
+
+        private void FillRarityComboBox()
         {
             cBRarities.Items.Clear();
             cBRarities.DataSource = System.Enum.GetValues(typeof(Rarity));
@@ -66,15 +80,17 @@ namespace CardCreator
         }
         private string CreateDescriptionNew()
         {
-            var description = "";
+            var description = new System.Text.StringBuilder();
             foreach (Control control in FlwKeywords.Controls)
             {
                 if (control is TextBox || control is ComboBox)
                 {
-                    description += control.Text + " ";
+                    if (control.Name.StartsWith("DS:"))
+                        description.Append( "= ");
+                    description.Append(control.Text + " ");
                 }
             }
-            return description;
+            return description.ToString();
         }
         private readonly string[] _attributes = { "HP", "AP", "STR", "Turns" };
         private void CbKeywords_SelectedIndexChanged(object sender, EventArgs e)
@@ -102,6 +118,25 @@ namespace CardCreator
                     FlwKeywords.Controls.Add(combobox);
 
                 } while (lastIndex < keyword.Description.LastIndexOf("$", StringComparison.Ordinal));
+            }
+            var dsCount = keyword.Description.Count(x => x == '€');
+            if (dsCount>0)
+            {
+                for (int i = 0; i < dsCount; i++)
+                {
+                    var label = new Label
+                    {
+                        Text = (i + 1)+". Do Something ",
+                        Margin = new Padding(3,5,3,3)
+                    };
+                    var textBox = new TextBox
+                    {
+                        Name = "DS:"+i.ToString()
+                    };
+                    textBox.Size = new System.Drawing.Size(FlwKeywords.Size.Width - 120, textBox.Size.Height);
+                    FlwKeywords.Controls.Add(label);
+                    FlwKeywords.Controls.Add(textBox);
+                }
             }
         }
         private void BtnDeleteKeyword_Click(object sender, EventArgs e)
@@ -160,7 +195,8 @@ namespace CardCreator
                     Keywords = _currentCardKeywordList,
                     Description = TbCardDescription.Text,
                     AP = (int)NudAP.Value,
-                    Rarity = (Rarity)cBRarities.SelectedItem
+                    Rarity = (Rarity)cBRarities.SelectedItem,
+                    Faction = (FactionEditor.Faction)cBFactions.SelectedItem
                 };
                 ClearFormControls();
                 var isInserted = _cardCrud.Insert(card);
@@ -203,8 +239,21 @@ namespace CardCreator
             LbCurrentKeywords.Items.Clear();
             _currentCardKeywordList.Clear();
         }
+        
         private void LbCardList_SelectedIndexChanged(object sender, EventArgs e)
         {
+            int GetFactionIndex(FactionEditor.Faction faction)
+            {
+                if (faction == null) return 0;
+                for (int i = 0; i < cBFactions.Items.Count; i++)
+                {
+                    if (((FactionEditor.Faction)cBFactions.Items[i])._id == faction._id)
+                    {
+                        return i;
+                    }
+                }
+                return -1;
+            }
             var selectedIndex = LbCardList.SelectedIndex;
             if (selectedIndex > -1)
             {
@@ -216,6 +265,7 @@ namespace CardCreator
                 NudSTR.Value = currentCard.STR;
                 NudAP.Value = currentCard.AP;
                 cBRarities.SelectedIndex = (int)currentCard.Rarity;
+                cBFactions.SelectedIndex = GetFactionIndex(currentCard.Faction);
                 _currentCardKeywordList = currentCard.Keywords;
                 LbCurrentKeywords.Items.Clear();
                 LbCurrentKeywords.Items.AddRange(TbCardDescription.Text.Split('\n').Where(x=> string.IsNullOrWhiteSpace(x)== false).ToArray());// \n çünkü chichi 
@@ -234,7 +284,8 @@ namespace CardCreator
                 Keywords = _currentCardKeywordList,
                 Description = TbCardDescription.Text,
                 _id = oldID,
-                Rarity = (Rarity)cBRarities.SelectedItem
+                Rarity = (Rarity)cBRarities.SelectedItem,
+                Faction = (FactionEditor.Faction)cBFactions.SelectedItem
             };
             var isUpdated = _cardCrud.Update(oldID, card);
             if (isUpdated == true)

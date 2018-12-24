@@ -56,6 +56,8 @@
             this.NudAP = new System.Windows.Forms.NumericUpDown();
             this.label8 = new System.Windows.Forms.Label();
             this.cBRarities = new System.Windows.Forms.ComboBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.cBFactions = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NudHP)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NudSTR)).BeginInit();
@@ -326,11 +328,31 @@
             this.cBRarities.Size = new System.Drawing.Size(171, 21);
             this.cBRarities.TabIndex = 9;
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(12, 183);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(42, 13);
+            this.label9.TabIndex = 8;
+            this.label9.Text = "Faction";
+            // 
+            // cBFactions
+            // 
+            this.cBFactions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cBFactions.FormattingEnabled = true;
+            this.cBFactions.Location = new System.Drawing.Point(54, 180);
+            this.cBFactions.Name = "cBFactions";
+            this.cBFactions.Size = new System.Drawing.Size(171, 21);
+            this.cBFactions.TabIndex = 9;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1174, 501);
+            this.Controls.Add(this.cBFactions);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.cBRarities);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.TbSearchText);
@@ -396,6 +418,8 @@
         private System.Windows.Forms.NumericUpDown NudAP;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ComboBox cBRarities;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.ComboBox cBFactions;
     }
 }
 

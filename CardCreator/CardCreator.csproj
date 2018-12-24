@@ -127,5 +127,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FactionEditor\FactionEditor.csproj">
+      <Project>{1cb45a2e-105e-4fb8-8f25-8b6f3990b344}</Project>
+      <Name>FactionEditor</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
