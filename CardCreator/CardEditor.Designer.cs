@@ -1,6 +1,6 @@
 ﻿namespace CardCreator
 {
-    partial class Form1
+    partial class CardEditor
     {
         /// <summary>
         /// Required designer variable.
@@ -58,11 +58,14 @@
             this.cBRarities = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
             this.cBFactions = new System.Windows.Forms.ComboBox();
+            this.gBCardDetails = new System.Windows.Forms.GroupBox();
+            this.bClearCardDetails = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NudHP)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NudSTR)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NudCost)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NudAP)).BeginInit();
+            this.gBCardDetails.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -74,20 +77,23 @@
             this.groupBox1.Controls.Add(this.BtnAddKeyword);
             this.groupBox1.Controls.Add(this.FlwKeywords);
             this.groupBox1.Controls.Add(this.CbKeywords);
-            this.groupBox1.Location = new System.Drawing.Point(285, 7);
+            this.groupBox1.Location = new System.Drawing.Point(505, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(503, 269);
+            this.groupBox1.Size = new System.Drawing.Size(559, 463);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Manage Keywords";
             // 
             // LbCurrentKeywords
             // 
+            this.LbCurrentKeywords.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.LbCurrentKeywords.FormattingEnabled = true;
             this.LbCurrentKeywords.HorizontalScrollbar = true;
-            this.LbCurrentKeywords.Location = new System.Drawing.Point(280, 20);
+            this.LbCurrentKeywords.Location = new System.Drawing.Point(7, 208);
             this.LbCurrentKeywords.Name = "LbCurrentKeywords";
-            this.LbCurrentKeywords.Size = new System.Drawing.Size(217, 212);
+            this.LbCurrentKeywords.Size = new System.Drawing.Size(266, 186);
             this.LbCurrentKeywords.TabIndex = 4;
             // 
             // TbKeywordDescription
@@ -96,12 +102,13 @@
             this.TbKeywordDescription.Location = new System.Drawing.Point(7, 47);
             this.TbKeywordDescription.Multiline = true;
             this.TbKeywordDescription.Name = "TbKeywordDescription";
-            this.TbKeywordDescription.Size = new System.Drawing.Size(266, 55);
+            this.TbKeywordDescription.Size = new System.Drawing.Size(266, 147);
             this.TbKeywordDescription.TabIndex = 3;
             // 
             // BtnEditKeyword
             // 
-            this.BtnEditKeyword.Location = new System.Drawing.Point(278, 238);
+            this.BtnEditKeyword.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.BtnEditKeyword.Location = new System.Drawing.Point(147, 398);
             this.BtnEditKeyword.Name = "BtnEditKeyword";
             this.BtnEditKeyword.Size = new System.Drawing.Size(126, 23);
             this.BtnEditKeyword.TabIndex = 2;
@@ -111,7 +118,8 @@
             // 
             // BtnDeleteKeyword
             // 
-            this.BtnDeleteKeyword.Location = new System.Drawing.Point(142, 238);
+            this.BtnDeleteKeyword.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.BtnDeleteKeyword.Location = new System.Drawing.Point(77, 427);
             this.BtnDeleteKeyword.Name = "BtnDeleteKeyword";
             this.BtnDeleteKeyword.Size = new System.Drawing.Size(126, 23);
             this.BtnDeleteKeyword.TabIndex = 2;
@@ -121,7 +129,8 @@
             // 
             // BtnAddKeyword
             // 
-            this.BtnAddKeyword.Location = new System.Drawing.Point(6, 238);
+            this.BtnAddKeyword.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.BtnAddKeyword.Location = new System.Drawing.Point(6, 398);
             this.BtnAddKeyword.Name = "BtnAddKeyword";
             this.BtnAddKeyword.Size = new System.Drawing.Size(126, 23);
             this.BtnAddKeyword.TabIndex = 2;
@@ -131,9 +140,11 @@
             // 
             // FlwKeywords
             // 
-            this.FlwKeywords.Location = new System.Drawing.Point(7, 108);
+            this.FlwKeywords.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.FlwKeywords.Location = new System.Drawing.Point(283, 19);
             this.FlwKeywords.Name = "FlwKeywords";
-            this.FlwKeywords.Size = new System.Drawing.Size(266, 126);
+            this.FlwKeywords.Size = new System.Drawing.Size(266, 438);
             this.FlwKeywords.TabIndex = 1;
             // 
             // CbKeywords
@@ -150,7 +161,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 27);
+            this.label1.Location = new System.Drawing.Point(23, 26);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 1;
@@ -159,7 +170,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 54);
+            this.label2.Location = new System.Drawing.Point(23, 53);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(22, 13);
             this.label2.TabIndex = 1;
@@ -168,7 +179,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 81);
+            this.label3.Location = new System.Drawing.Point(23, 80);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(29, 13);
             this.label3.TabIndex = 1;
@@ -177,7 +188,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 207);
+            this.label4.Location = new System.Drawing.Point(23, 218);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(85, 13);
             this.label4.TabIndex = 1;
@@ -185,28 +196,28 @@
             // 
             // TbName
             // 
-            this.TbName.Location = new System.Drawing.Point(54, 26);
+            this.TbName.Location = new System.Drawing.Point(65, 25);
             this.TbName.Name = "TbName";
             this.TbName.Size = new System.Drawing.Size(169, 20);
             this.TbName.TabIndex = 0;
             // 
             // NudHP
             // 
-            this.NudHP.Location = new System.Drawing.Point(54, 51);
+            this.NudHP.Location = new System.Drawing.Point(65, 50);
             this.NudHP.Name = "NudHP";
             this.NudHP.Size = new System.Drawing.Size(169, 20);
             this.NudHP.TabIndex = 1;
             // 
             // NudSTR
             // 
-            this.NudSTR.Location = new System.Drawing.Point(54, 76);
+            this.NudSTR.Location = new System.Drawing.Point(65, 75);
             this.NudSTR.Name = "NudSTR";
             this.NudSTR.Size = new System.Drawing.Size(169, 20);
             this.NudSTR.TabIndex = 2;
             // 
             // NudCost
             // 
-            this.NudCost.Location = new System.Drawing.Point(54, 101);
+            this.NudCost.Location = new System.Drawing.Point(65, 100);
             this.NudCost.Maximum = new decimal(new int[] {
             9999,
             0,
@@ -218,17 +229,17 @@
             // 
             // TbCardDescription
             // 
-            this.TbCardDescription.Location = new System.Drawing.Point(15, 233);
+            this.TbCardDescription.Location = new System.Drawing.Point(26, 244);
             this.TbCardDescription.Multiline = true;
             this.TbCardDescription.Name = "TbCardDescription";
-            this.TbCardDescription.Size = new System.Drawing.Size(264, 174);
+            this.TbCardDescription.Size = new System.Drawing.Size(242, 174);
             this.TbCardDescription.TabIndex = 5;
             // 
             // BtnCreateCard
             // 
-            this.BtnCreateCard.Location = new System.Drawing.Point(292, 302);
+            this.BtnCreateCard.Location = new System.Drawing.Point(285, 409);
             this.BtnCreateCard.Name = "BtnCreateCard";
-            this.BtnCreateCard.Size = new System.Drawing.Size(177, 44);
+            this.BtnCreateCard.Size = new System.Drawing.Size(201, 30);
             this.BtnCreateCard.TabIndex = 6;
             this.BtnCreateCard.Text = "Create Card";
             this.BtnCreateCard.UseVisualStyleBackColor = true;
@@ -237,7 +248,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 103);
+            this.label5.Location = new System.Drawing.Point(23, 102);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(28, 13);
             this.label5.TabIndex = 1;
@@ -246,16 +257,17 @@
             // LbCardList
             // 
             this.LbCardList.FormattingEnabled = true;
-            this.LbCardList.Location = new System.Drawing.Point(821, 27);
+            this.LbCardList.Location = new System.Drawing.Point(288, 25);
             this.LbCardList.Name = "LbCardList";
-            this.LbCardList.Size = new System.Drawing.Size(198, 303);
+            this.LbCardList.Size = new System.Drawing.Size(198, 316);
             this.LbCardList.TabIndex = 5;
             this.LbCardList.SelectedIndexChanged += new System.EventHandler(this.LbCardList_SelectedIndexChanged);
+            this.LbCardList.MouseDown += new System.Windows.Forms.MouseEventHandler(this.CardList_MouseDown);
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(818, 11);
+            this.label6.Location = new System.Drawing.Point(285, 9);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(45, 13);
             this.label6.TabIndex = 6;
@@ -263,9 +275,9 @@
             // 
             // BtnEditCard
             // 
-            this.BtnEditCard.Location = new System.Drawing.Point(485, 302);
+            this.BtnEditCard.Location = new System.Drawing.Point(285, 445);
             this.BtnEditCard.Name = "BtnEditCard";
-            this.BtnEditCard.Size = new System.Drawing.Size(204, 44);
+            this.BtnEditCard.Size = new System.Drawing.Size(201, 30);
             this.BtnEditCard.TabIndex = 7;
             this.BtnEditCard.Text = "Edit Card";
             this.BtnEditCard.UseVisualStyleBackColor = true;
@@ -273,9 +285,9 @@
             // 
             // BtnDeleteCard
             // 
-            this.BtnDeleteCard.Location = new System.Drawing.Point(1025, 27);
+            this.BtnDeleteCard.Location = new System.Drawing.Point(285, 373);
             this.BtnDeleteCard.Name = "BtnDeleteCard";
-            this.BtnDeleteCard.Size = new System.Drawing.Size(143, 44);
+            this.BtnDeleteCard.Size = new System.Drawing.Size(201, 30);
             this.BtnDeleteCard.TabIndex = 4;
             this.BtnDeleteCard.Text = "Delete Card";
             this.BtnDeleteCard.UseVisualStyleBackColor = true;
@@ -283,7 +295,7 @@
             // 
             // TbSearchText
             // 
-            this.TbSearchText.Location = new System.Drawing.Point(821, 339);
+            this.TbSearchText.Location = new System.Drawing.Point(288, 347);
             this.TbSearchText.Name = "TbSearchText";
             this.TbSearchText.Size = new System.Drawing.Size(198, 20);
             this.TbSearchText.TabIndex = 7;
@@ -292,7 +304,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(12, 129);
+            this.label7.Location = new System.Drawing.Point(23, 128);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(21, 13);
             this.label7.TabIndex = 1;
@@ -300,7 +312,7 @@
             // 
             // NudAP
             // 
-            this.NudAP.Location = new System.Drawing.Point(54, 127);
+            this.NudAP.Location = new System.Drawing.Point(65, 126);
             this.NudAP.Maximum = new decimal(new int[] {
             9999,
             0,
@@ -313,7 +325,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(12, 156);
+            this.label8.Location = new System.Drawing.Point(23, 155);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(34, 13);
             this.label8.TabIndex = 8;
@@ -323,7 +335,7 @@
             // 
             this.cBRarities.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cBRarities.FormattingEnabled = true;
-            this.cBRarities.Location = new System.Drawing.Point(54, 153);
+            this.cBRarities.Location = new System.Drawing.Point(65, 152);
             this.cBRarities.Name = "cBRarities";
             this.cBRarities.Size = new System.Drawing.Size(171, 21);
             this.cBRarities.TabIndex = 9;
@@ -331,7 +343,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(12, 183);
+            this.label9.Location = new System.Drawing.Point(23, 182);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(42, 13);
             this.label9.TabIndex = 8;
@@ -341,40 +353,61 @@
             // 
             this.cBFactions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cBFactions.FormattingEnabled = true;
-            this.cBFactions.Location = new System.Drawing.Point(54, 180);
+            this.cBFactions.Location = new System.Drawing.Point(65, 179);
             this.cBFactions.Name = "cBFactions";
             this.cBFactions.Size = new System.Drawing.Size(171, 21);
             this.cBFactions.TabIndex = 9;
             // 
-            // Form1
+            // gBCardDetails
+            // 
+            this.gBCardDetails.Controls.Add(this.bClearCardDetails);
+            this.gBCardDetails.Controls.Add(this.label1);
+            this.gBCardDetails.Controls.Add(this.cBFactions);
+            this.gBCardDetails.Controls.Add(this.label3);
+            this.gBCardDetails.Controls.Add(this.label9);
+            this.gBCardDetails.Controls.Add(this.label5);
+            this.gBCardDetails.Controls.Add(this.cBRarities);
+            this.gBCardDetails.Controls.Add(this.label7);
+            this.gBCardDetails.Controls.Add(this.label8);
+            this.gBCardDetails.Controls.Add(this.label2);
+            this.gBCardDetails.Controls.Add(this.TbName);
+            this.gBCardDetails.Controls.Add(this.TbCardDescription);
+            this.gBCardDetails.Controls.Add(this.label4);
+            this.gBCardDetails.Controls.Add(this.NudHP);
+            this.gBCardDetails.Controls.Add(this.NudSTR);
+            this.gBCardDetails.Controls.Add(this.NudCost);
+            this.gBCardDetails.Controls.Add(this.NudAP);
+            this.gBCardDetails.Location = new System.Drawing.Point(5, 7);
+            this.gBCardDetails.Name = "gBCardDetails";
+            this.gBCardDetails.Size = new System.Drawing.Size(274, 482);
+            this.gBCardDetails.TabIndex = 10;
+            this.gBCardDetails.TabStop = false;
+            this.gBCardDetails.Text = "Card Properties";
+            // 
+            // bClearCardDetails
+            // 
+            this.bClearCardDetails.Location = new System.Drawing.Point(61, 433);
+            this.bClearCardDetails.Name = "bClearCardDetails";
+            this.bClearCardDetails.Size = new System.Drawing.Size(173, 23);
+            this.bClearCardDetails.TabIndex = 11;
+            this.bClearCardDetails.Text = "Clear Card Properties";
+            this.bClearCardDetails.UseVisualStyleBackColor = true;
+            this.bClearCardDetails.Click += new System.EventHandler(this.ClearCardDetails_Click);
+            // 
+            // CardEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1174, 501);
-            this.Controls.Add(this.cBFactions);
-            this.Controls.Add(this.label9);
-            this.Controls.Add(this.cBRarities);
-            this.Controls.Add(this.label8);
+            this.ClientSize = new System.Drawing.Size(1113, 501);
+            this.Controls.Add(this.gBCardDetails);
             this.Controls.Add(this.TbSearchText);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.LbCardList);
             this.Controls.Add(this.BtnDeleteCard);
             this.Controls.Add(this.BtnEditCard);
             this.Controls.Add(this.BtnCreateCard);
-            this.Controls.Add(this.NudAP);
-            this.Controls.Add(this.NudCost);
-            this.Controls.Add(this.NudSTR);
-            this.Controls.Add(this.NudHP);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.TbCardDescription);
-            this.Controls.Add(this.TbName);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label7);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label3);
-            this.Name = "Form1";
+            this.Name = "CardEditor";
             this.Text = "Create Card";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
@@ -383,6 +416,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.NudSTR)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NudCost)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NudAP)).EndInit();
+            this.gBCardDetails.ResumeLayout(false);
+            this.gBCardDetails.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -420,6 +455,8 @@
         private System.Windows.Forms.ComboBox cBRarities;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.ComboBox cBFactions;
+        private System.Windows.Forms.GroupBox gBCardDetails;
+        private System.Windows.Forms.Button bClearCardDetails;
     }
 }
 

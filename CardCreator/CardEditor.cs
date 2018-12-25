@@ -5,10 +5,12 @@ using System.Windows.Forms;
 using System.Linq;
 using System.IO;
 using CardCreator.Enum;
+using FactionEditor;
+using MongoCRUD.Interfaces;
 
 namespace CardCreator
 {
-    public partial class Form1 : Form
+    public partial class CardEditor : Form
     {
         private List<Keyword> _currentCardKeywordList = new List<Keyword>();
 
@@ -16,31 +18,40 @@ namespace CardCreator
         private readonly Crud<Card> _cardCrud;
         private readonly Crud<FactionEditor.Faction> _crudFaction;
 
-        public Form1()
+        private readonly string[] _attributes = { "HP", "AP", "STR", "Turn(s)" };
+        private readonly CardInfoPage _cardInfoPage;
+
+        public CardEditor()
         {
             InitializeComponent();
 
 
             const string ConnectionString = "mongodb://ohm:741895623ohm@test-shard-00-00-imtir.mongodb.net:27017,test-shard-00-01-imtir.mongodb.net:27017,test-shard-00-02-imtir.mongodb.net:27017/test?ssl=true&replicaSet=test-shard-0&authSource=admin&retryWrites=true";
             MongoDbConnection.InitializeAndStartConnection(ConnectionString, databaseName: "MilitaryTCG");
+
             _keywordCrud = new Crud<Keyword>();
             _cardCrud = new Crud<Card>();
             _crudFaction = new Crud<FactionEditor.Faction>();
+
+            _cardInfoPage = new CardInfoPage(FillFactionComboBox());
+
             FillRarityComboBox();
-            FillFactionComboBox();
             FillCombobox();
             FillListBox();
         }
 
-        private void FillFactionComboBox()
+        private List<Faction> FillFactionComboBox()
         {
             cBFactions.Items.Clear();
             var factions = _crudFaction.GetAll();
             cBFactions.Items.AddRange(factions.ToArray());
             if (cBFactions.Items.Count > 0)
             {
-                cBFactions.SelectedIndex = 0;
+                var merc = factions.FirstOrDefault(x => x.Name == "Mercenary");
+                cBFactions.SelectedItem = merc ?? factions[0];
             }
+
+            return factions;
         }
 
         private void FillRarityComboBox()
@@ -53,6 +64,40 @@ namespace CardCreator
             }
         }
 
+        private void ClearCardDetailControls()
+        {
+            foreach (Control control in gBCardDetails.Controls)
+            {
+                if (control is TextBox textBox)
+                {
+                    textBox.Text = "";
+                }
+                else if (control is NumericUpDown numericUpDown)
+                {
+                    numericUpDown.Value = 0;
+                }
+                else if (control.Name == cBFactions.Name)
+                {
+                    for (int i = 0; i < cBFactions.Items.Count; i++)
+                    {
+                        if (((Faction)cBFactions.Items[i]).Name == "Mercenary")
+                        {
+                            cBFactions.SelectedIndex = i;
+                            break;
+                        }
+                    }
+                }
+                else if (control is ComboBox comboBox)
+                {
+                    if (comboBox.Items.Count > 0)
+                    {
+                        comboBox.SelectedIndex = 0;
+                    }
+                }
+            }
+
+            TbName.Focus();
+        }
         private void BtnAddKeyword_Click(object sender, EventArgs e)
         {
             var currentKeyword = (Keyword)CbKeywords.SelectedItem;
@@ -86,13 +131,14 @@ namespace CardCreator
                 if (control is TextBox || control is ComboBox)
                 {
                     if (control.Name.StartsWith("DS:"))
-                        description.Append( "= ");
+                        description.Append("= ");
+
                     description.Append(control.Text + " ");
                 }
             }
             return description.ToString();
         }
-        private readonly string[] _attributes = { "HP", "AP", "STR", "Turns" };
+
         private void CbKeywords_SelectedIndexChanged(object sender, EventArgs e)
         {
             var keyword = (Keyword)CbKeywords.SelectedItem;
@@ -119,19 +165,20 @@ namespace CardCreator
 
                 } while (lastIndex < keyword.Description.LastIndexOf("$", StringComparison.Ordinal));
             }
+
             var dsCount = keyword.Description.Count(x => x == '€');
-            if (dsCount>0)
+            if (dsCount > 0)
             {
                 for (int i = 0; i < dsCount; i++)
                 {
                     var label = new Label
                     {
-                        Text = (i + 1)+". Do Something ",
-                        Margin = new Padding(3,5,3,3)
+                        Text = (i + 1) + ". Do Something ",
+                        Margin = new Padding(3, 5, 3, 3)
                     };
                     var textBox = new TextBox
                     {
-                        Name = "DS:"+i.ToString()
+                        Name = "DS:" + i
                     };
                     textBox.Size = new System.Drawing.Size(FlwKeywords.Size.Width - 120, textBox.Size.Height);
                     FlwKeywords.Controls.Add(label);
@@ -166,7 +213,8 @@ namespace CardCreator
                 FillCombobox();
             }
         }
-        void FillListBox()
+
+        private void FillListBox()
         {
             LbCardList.Items.Clear();
             var allCards = _cardCrud.GetAll().ToArray();
@@ -204,6 +252,7 @@ namespace CardCreator
                 {
                     MessageBox.Show($"Card: {card} is inserted");
                     FillListBox();
+                    ClearCardDetailControls();
                 }
                 else
                 {
@@ -239,10 +288,10 @@ namespace CardCreator
             LbCurrentKeywords.Items.Clear();
             _currentCardKeywordList.Clear();
         }
-        
+
         private void LbCardList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int GetFactionIndex(FactionEditor.Faction faction)
+            int GetFactionIndex(DbObject faction)
             {
                 if (faction == null) return 0;
                 for (int i = 0; i < cBFactions.Items.Count; i++)
@@ -268,7 +317,7 @@ namespace CardCreator
                 cBFactions.SelectedIndex = GetFactionIndex(currentCard.Faction);
                 _currentCardKeywordList = currentCard.Keywords;
                 LbCurrentKeywords.Items.Clear();
-                LbCurrentKeywords.Items.AddRange(TbCardDescription.Text.Split('\n').Where(x=> string.IsNullOrWhiteSpace(x)== false).ToArray());// \n çünkü chichi 
+                LbCurrentKeywords.Items.AddRange(TbCardDescription.Text.Split('\n').Where(x => string.IsNullOrWhiteSpace(x) == false).ToArray());// \n çünkü chichi 
             }
         }
         private void BtnEditCard_Click(object sender, EventArgs e)
@@ -287,11 +336,10 @@ namespace CardCreator
                 Rarity = (Rarity)cBRarities.SelectedItem,
                 Faction = (FactionEditor.Faction)cBFactions.SelectedItem
             };
-            var isUpdated = _cardCrud.Update(oldID, card);
-            if (isUpdated == true)
+            if (_cardCrud.Update(oldID, card) == true)
             {
                 MessageBox.Show($"Card: {card} is updated");
-                ClearFormControls();
+                ClearCardDetailControls();
                 FillListBox();
             }
             else
@@ -310,7 +358,7 @@ namespace CardCreator
                 {
                     MessageBox.Show($"Card: {card} is delete");
                     FillListBox();
-                    ClearFormControls();
+                    
                 }
                 else
                 {
@@ -318,11 +366,12 @@ namespace CardCreator
                 }
             }
         }
-        void FillCombobox()
+
+        private void FillCombobox()
         {
             CbKeywords.Items.Clear();
             var allKeywords = _keywordCrud.GetAll()
-                .Where(x=> IsKeywordAdded(x.Name) == false).ToArray();
+                .Where(x => IsKeywordAdded(x.Name) == false).ToArray();
             CbKeywords.Items.AddRange(allKeywords);
             CbKeywords.Text = string.Empty;
             TbKeywordDescription.Text = string.Empty;
@@ -355,6 +404,27 @@ namespace CardCreator
 
         }
 
+        private void ClearCardDetails_Click(object sender, EventArgs e)
+        {
+            ClearCardDetailControls();
+        }
+
+        private void CardList_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                var selectedCard = (Card) LbCardList.Items[LbCardList.IndexFromPoint(e.X, e.Y)];
+                _cardInfoPage.Card = selectedCard;
+                if (_cardInfoPage.Visible == false)
+                {
+                    _cardInfoPage.Show();
+                }
+                else
+                {
+                    _cardInfoPage.Activate();
+                }
+            }
+        }
     }
 
 }

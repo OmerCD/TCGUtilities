@@ -10,11 +10,11 @@ using System.Windows.Forms;
 namespace MilitaryTCGUtility
 {
 
-    public partial class Form1 : Form
+    public partial class Keywords : Form
     {
         private Crud<Keyword> _crudKeyword;
         private Control _errorControl;
-        public Form1()
+        public Keywords()
         {
             InitializeComponent();
             const string CONNECTIONSTRING = "mongodb://ohm:741895623ohm@test-shard-00-00-imtir.mongodb.net:27017,test-shard-00-01-imtir.mongodb.net:27017,test-shard-00-02-imtir.mongodb.net:27017/test?ssl=true&replicaSet=test-shard-0&authSource=admin&retryWrites=true";

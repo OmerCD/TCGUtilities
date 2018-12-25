@@ -71,6 +71,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Card.cs" />
+    <Compile Include="CardInfoPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CardInfoPage.Designer.cs">
+      <DependentUpon>CardInfoPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Description.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -84,25 +90,28 @@
       <DependentUpon>DescriptionLine.cs</DependentUpon>
     </Compile>
     <Compile Include="Enum.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="CardEditor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="CardEditor.Designer.cs">
+      <DependentUpon>CardEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="Keyword.cs" />
     <Compile Include="KeywordAnalyzer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VariantField.cs" />
+    <EmbeddedResource Include="CardInfoPage.resx">
+      <DependentUpon>CardInfoPage.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Description.resx">
       <DependentUpon>Description.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DescriptionLine.resx">
       <DependentUpon>DescriptionLine.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="CardEditor.resx">
+      <DependentUpon>CardEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

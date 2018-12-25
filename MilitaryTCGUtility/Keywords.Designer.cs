@@ -1,6 +1,6 @@
 ﻿namespace MilitaryTCGUtility
 {
-    partial class Form1
+    partial class Keywords
     {
         /// <summary>
         /// Required designer variable.
