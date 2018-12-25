@@ -78,6 +78,12 @@ namespace CardCreator
         {
             Hide();
         }
+
+        private void Top_Click(object sender, EventArgs e)
+        {
+            TopMost = !TopMost;
+            bTop.BackColor = bTop.BackColor == Color.WhiteSmoke ? Color.Green : Color.WhiteSmoke;
+        }
     }
 }
 

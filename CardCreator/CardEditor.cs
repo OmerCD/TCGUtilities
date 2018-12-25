@@ -18,7 +18,7 @@ namespace CardCreator
         private readonly Crud<Card> _cardCrud;
         private readonly Crud<FactionEditor.Faction> _crudFaction;
 
-        private readonly string[] _attributes = { "HP", "AP", "STR", "Turn(s)" };
+        private readonly string[] _attributes = { "HP", "AP", "STR", "Turn(s)", "Tile(s)" };
         private readonly CardInfoPage _cardInfoPage;
 
         public CardEditor()
@@ -424,6 +424,19 @@ namespace CardCreator
                     _cardInfoPage.Activate();
                 }
             }
+        }
+
+        private void RemoveAllKeywords_Click(object sender, EventArgs e)
+        {
+            _currentCardKeywordList.Clear();
+            foreach (var item in LbCurrentKeywords.Items)
+            {
+                var text = item.ToString();
+                var oldKeyword = item + ":" + text + "\n";// \n çünkü chichi
+                TbCardDescription.Text = TbCardDescription.Text.Replace(oldKeyword, string.Empty);
+                FillCombobox();
+            }
+            LbCurrentKeywords.Items.Clear();
         }
     }
 

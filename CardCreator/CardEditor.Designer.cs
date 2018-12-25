@@ -60,6 +60,7 @@
             this.cBFactions = new System.Windows.Forms.ComboBox();
             this.gBCardDetails = new System.Windows.Forms.GroupBox();
             this.bClearCardDetails = new System.Windows.Forms.Button();
+            this.bRemoveAllKeywords = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NudHP)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NudSTR)).BeginInit();
@@ -70,6 +71,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.bRemoveAllKeywords);
             this.groupBox1.Controls.Add(this.LbCurrentKeywords);
             this.groupBox1.Controls.Add(this.TbKeywordDescription);
             this.groupBox1.Controls.Add(this.BtnEditKeyword);
@@ -119,7 +121,7 @@
             // BtnDeleteKeyword
             // 
             this.BtnDeleteKeyword.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.BtnDeleteKeyword.Location = new System.Drawing.Point(77, 427);
+            this.BtnDeleteKeyword.Location = new System.Drawing.Point(7, 427);
             this.BtnDeleteKeyword.Name = "BtnDeleteKeyword";
             this.BtnDeleteKeyword.Size = new System.Drawing.Size(126, 23);
             this.BtnDeleteKeyword.TabIndex = 2;
@@ -394,6 +396,17 @@
             this.bClearCardDetails.UseVisualStyleBackColor = true;
             this.bClearCardDetails.Click += new System.EventHandler(this.ClearCardDetails_Click);
             // 
+            // bRemoveAllKeywords
+            // 
+            this.bRemoveAllKeywords.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.bRemoveAllKeywords.Location = new System.Drawing.Point(147, 427);
+            this.bRemoveAllKeywords.Name = "bRemoveAllKeywords";
+            this.bRemoveAllKeywords.Size = new System.Drawing.Size(126, 23);
+            this.bRemoveAllKeywords.TabIndex = 5;
+            this.bRemoveAllKeywords.Text = "Remove All Keywords";
+            this.bRemoveAllKeywords.UseVisualStyleBackColor = true;
+            this.bRemoveAllKeywords.Click += new System.EventHandler(this.RemoveAllKeywords_Click);
+            // 
             // CardEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -457,6 +470,7 @@
         private System.Windows.Forms.ComboBox cBFactions;
         private System.Windows.Forms.GroupBox gBCardDetails;
         private System.Windows.Forms.Button bClearCardDetails;
+        private System.Windows.Forms.Button bRemoveAllKeywords;
     }
 }
 

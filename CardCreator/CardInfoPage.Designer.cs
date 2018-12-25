@@ -45,7 +45,7 @@
             this.NudCost = new System.Windows.Forms.NumericUpDown();
             this.NudAP = new System.Windows.Forms.NumericUpDown();
             this.bClose = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.bTop = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.NudHP)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NudSTR)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NudCost)).BeginInit();
@@ -217,16 +217,17 @@
             this.bClose.UseVisualStyleBackColor = false;
             this.bClose.Click += new System.EventHandler(this.Close_Click);
             // 
-            // button1
+            // bTop
             // 
-            this.button1.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(188, 7);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(32, 25);
-            this.button1.TabIndex = 27;
-            this.button1.Text = "-";
-            this.button1.UseVisualStyleBackColor = false;
+            this.bTop.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.bTop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bTop.Location = new System.Drawing.Point(188, 7);
+            this.bTop.Name = "bTop";
+            this.bTop.Size = new System.Drawing.Size(32, 25);
+            this.bTop.TabIndex = 27;
+            this.bTop.Text = "-";
+            this.bTop.UseVisualStyleBackColor = false;
+            this.bTop.Click += new System.EventHandler(this.Top_Click);
             // 
             // CardInfoPage
             // 
@@ -234,7 +235,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDark;
             this.ClientSize = new System.Drawing.Size(268, 444);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.bTop);
             this.Controls.Add(this.bClose);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cBFactions);
@@ -254,6 +255,7 @@
             this.Controls.Add(this.NudAP);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "CardInfoPage";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "CardInfoPage";
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.CardInfoPage_MouseDown);
             ((System.ComponentModel.ISupportInitialize)(this.NudHP)).EndInit();
@@ -284,6 +286,6 @@
         private System.Windows.Forms.NumericUpDown NudCost;
         private System.Windows.Forms.NumericUpDown NudAP;
         private System.Windows.Forms.Button bClose;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button bTop;
     }
 }
