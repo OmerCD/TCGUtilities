@@ -28,12 +28,12 @@ namespace CardCreator
         {
             set
             {
-                int GetFactionIndex(DbObject faction)
+                int GetFactionIndex(string factionId)
                 {
-                    if (faction == null) return 0;
+                    if (factionId == null) return 0;
                     for (int i = 0; i < cBFactions.Items.Count; i++)
                     {
-                        if (((Faction)cBFactions.Items[i])._id == faction._id)
+                        if (((Faction)cBFactions.Items[i])._id == factionId)
                         {
                             return i;
                         }
@@ -49,7 +49,7 @@ namespace CardCreator
                 NudSTR.Value = currentCard.STR;
                 NudAP.Value = currentCard.AP;
                 cBRarities.SelectedIndex = (int)currentCard.Rarity;
-                cBFactions.SelectedIndex = GetFactionIndex(currentCard.Faction);
+                cBFactions.SelectedIndex = GetFactionIndex(currentCard.FactionId);
             }
         }
 

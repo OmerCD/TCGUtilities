@@ -31,7 +31,7 @@ namespace CardCreator
 
             _keywordCrud = new Crud<Keyword>();
             _cardCrud = new Crud<Card>();
-            _crudFaction = new Crud<FactionEditor.Faction>();
+            _crudFaction = new Crud<Faction>();
 
             _cardInfoPage = new CardInfoPage(FillFactionComboBox());
 
@@ -40,7 +40,7 @@ namespace CardCreator
             FillListBox();
         }
 
-        private List<Faction> FillFactionComboBox()
+        private IEnumerable<Faction> FillFactionComboBox()
         {
             cBFactions.Items.Clear();
             var factions = _crudFaction.GetAll();
@@ -240,11 +240,11 @@ namespace CardCreator
                     HP = (int)NudHP.Value,
                     Cost = (int)NudCost.Value,
                     STR = (int)NudSTR.Value,
-                    Keywords = _currentCardKeywordList,
+                    KeywordIds = _currentCardKeywordList.Select(x=>x._id).ToList(),
                     Description = TbCardDescription.Text,
                     AP = (int)NudAP.Value,
                     Rarity = (Rarity)cBRarities.SelectedItem,
-                    Faction = (FactionEditor.Faction)cBFactions.SelectedItem
+                    FactionId = ((Faction)cBFactions.SelectedItem)._id
                 };
                 ClearFormControls();
                 var isInserted = _cardCrud.Insert(card);
@@ -291,12 +291,12 @@ namespace CardCreator
 
         private void LbCardList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int GetFactionIndex(DbObject faction)
+            int GetFactionIndex(string factionId)
             {
-                if (faction == null) return 0;
+                if (factionId == null) return 0;
                 for (int i = 0; i < cBFactions.Items.Count; i++)
                 {
-                    if (((FactionEditor.Faction)cBFactions.Items[i])._id == faction._id)
+                    if (((FactionEditor.Faction)cBFactions.Items[i])._id == factionId)
                     {
                         return i;
                     }
@@ -314,8 +314,8 @@ namespace CardCreator
                 NudSTR.Value = currentCard.STR;
                 NudAP.Value = currentCard.AP;
                 cBRarities.SelectedIndex = (int)currentCard.Rarity;
-                cBFactions.SelectedIndex = GetFactionIndex(currentCard.Faction);
-                _currentCardKeywordList = currentCard.Keywords;
+                cBFactions.SelectedIndex = GetFactionIndex(currentCard.FactionId);
+                _currentCardKeywordList = currentCard.GetKeywords(_keywordCrud);
                 LbCurrentKeywords.Items.Clear();
                 LbCurrentKeywords.Items.AddRange(TbCardDescription.Text.Split('\n').Where(x => string.IsNullOrWhiteSpace(x) == false).ToArray());// \n çünkü chichi 
             }
@@ -330,11 +330,11 @@ namespace CardCreator
                 Cost = (int)NudCost.Value,
                 STR = (int)NudSTR.Value,
                 AP = (int)NudAP.Value,
-                Keywords = _currentCardKeywordList,
+                KeywordIds = _currentCardKeywordList.Select(x=>x._id).ToList(),
                 Description = TbCardDescription.Text,
                 _id = oldID,
                 Rarity = (Rarity)cBRarities.SelectedItem,
-                Faction = (FactionEditor.Faction)cBFactions.SelectedItem
+                FactionId = ((Faction)cBFactions.SelectedItem)._id
             };
             if (_cardCrud.Update(oldID, card) == true)
             {
