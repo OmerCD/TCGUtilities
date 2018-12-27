@@ -16,7 +16,7 @@ namespace CardCreator
 
         private readonly Crud<Keyword> _keywordCrud;
         private readonly Crud<Card> _cardCrud;
-        private readonly Crud<FactionEditor.Faction> _crudFaction;
+        private readonly Crud<Faction> _crudFaction;
 
         private readonly string[] _attributes = { "HP", "AP", "STR", "Turn(s)", "Tile(s)" };
         private readonly CardInfoPage _cardInfoPage;
@@ -217,6 +217,7 @@ namespace CardCreator
         private void FillListBox()
         {
             LbCardList.Items.Clear();
+            var test = _cardCrud.GetOne("Name", "ChiChi");
             var allCards = _cardCrud.GetAll().ToArray();
             LbCardList.Items.AddRange(allCards);
         }
@@ -296,7 +297,7 @@ namespace CardCreator
                 if (factionId == null) return 0;
                 for (int i = 0; i < cBFactions.Items.Count; i++)
                 {
-                    if (((FactionEditor.Faction)cBFactions.Items[i])._id == factionId)
+                    if (((Faction)cBFactions.Items[i])._id == factionId)
                     {
                         return i;
                     }
@@ -330,7 +331,7 @@ namespace CardCreator
                 Cost = (int)NudCost.Value,
                 STR = (int)NudSTR.Value,
                 AP = (int)NudAP.Value,
-                KeywordIds = _currentCardKeywordList.Select(x=>x._id).ToList(),
+                KeywordIds = _currentCardKeywordList?.Select(x=>x._id).ToList(),
                 Description = TbCardDescription.Text,
                 _id = oldID,
                 Rarity = (Rarity)cBRarities.SelectedItem,

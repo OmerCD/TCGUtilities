@@ -22,7 +22,7 @@ namespace CardCreator
         public string FactionId { get; set; }
         public List<string> KeywordIds { get; set; }
 
-        public Card(string name, string description, int hP, int sTR, int cost,int aP, Rarity rarity, string factionId)
+        public Card(string name, string description, int hP, int sTR, int cost, int aP, Rarity rarity, string factionId)
         {
             Name = name;
             Description = description;
@@ -41,18 +41,24 @@ namespace CardCreator
 
         public List<Keyword> GetKeywords(Crud<Keyword> crudKeyword)
         {
-            var stringBuilder = new StringBuilder();
-            stringBuilder.Append("{$or: [");
-
-
-            foreach (var keywordId in KeywordIds)
+            if (KeywordIds == null || KeywordIds.Count ==0)
             {
-                var filterString = "{_id:\"" + keywordId + "\"},";
-                stringBuilder.Append(filterString);
+                return null;
             }
+            var groupsArray = new BsonArray();
 
-            FilterDefinition<BsonDocument> filter = stringBuilder.ToString();
-            return crudKeyword.GetAll(filter.ToBsonDocument());
+            foreach (var g in KeywordIds)
+            {
+                groupsArray.Add(new BsonDocument { { "_id", g } });
+            }
+            var bsonOr = new BsonDocument
+            {
+                {
+                    "$or",
+                    groupsArray
+                }
+            };
+            return crudKeyword.GetAll(bsonOr);
         }
         public override string ToString()
         {
